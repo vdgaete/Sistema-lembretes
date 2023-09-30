@@ -1,5 +1,3 @@
-//To do form component
-import { set } from "date-fns";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
@@ -30,45 +28,28 @@ const ToDoForm = () => {
 
     const [name, setName] = React.useState("");
     const [date, setDate] = React.useState(Date.now());
-    const [valid, setValid] = React.useState(false);
-    //style
+    
 
     const handleSubmit = (event) => {
+        //validar os dados
+        //enviar os dados para o servidor
+        //limpar o formulario
+        
+        if (name === "" || new Date(date) < new Date()) {
+            alert("Preencha os dados corretamente");
+            return;
+        }
         event.preventDefault();
-        console.log(name, date);
+        const data = {
+            name,
+            dueDate: date
+        };
+        console.log(data);
+        alert("Atividade adicionada com sucesso!");
+        alert(JSON.stringify(data));
+        alert(Date.now());
     }
 
-
-    const isDateValid = (date) => {
-        const now = Date.now();
-        if (date < now) {
-            console.log("Data invalida");
-            return false;
-        }
-        return true;
-    }
-
-    const isNameValid = (name) => {
-        if (name == "") {
-            return false;
-        }
-        return true;
-    }
-
-    const isFormValid = () => {
-        if (isDateValid(date) && isNameValid(name)) {
-            setValid(true);
-            return true;
-
-        }
-        setValid(false);
-        return false;
-    }
-    useEffect(() => {
-        isFormValid();
-    }
-         // eslint-disable-next-line react-hooks/exhaustive-deps
-         , [name, date]);
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -83,9 +64,10 @@ const ToDoForm = () => {
             <Input type="date" value={date} onChange={
                 (event) => {
                     setDate(event.target.value);
+                    console.log(event.target.value);    
                 }
             } />
-            <Button type="submit" disabled={!valid}>Adicionar</Button>
+            <Button type="submit" >Adicionar</Button>
         </Form>
     )
 
