@@ -28,13 +28,9 @@ const ToDoForm = () => {
 
     const [name, setName] = React.useState("");
     const [date, setDate] = React.useState(Date.now());
-    
 
     const handleSubmit = (event) => {
-        //validar os dados
-        //enviar os dados para o servidor
-        //limpar o formulario
-        
+
         if (name === "" || new Date(date) < new Date()) {
             alert("Preencha os dados corretamente");
             return;
