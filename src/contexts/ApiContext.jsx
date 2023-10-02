@@ -98,7 +98,9 @@ const ApiProvider = (props) => {
         getTarefas,
         postTarefas,
         deleteTarefas,
-        updateTarefas
+        updateTarefas,
+        reload,
+        
     }
 
     return (

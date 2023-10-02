@@ -42,7 +42,7 @@ const ListItem = styled.ul`
 `;
 
 function ToDoListShow() {
-  const { tarefas, error, deleteTarefas,getTarefas } = useApi();
+  const { tarefas, error, deleteTarefas,getTarefas,reload } = useApi();
   const [savedTarefas, setSavedTarefas] = useState([]);
   useEffect(() => {
     if (tarefas.error) {
@@ -85,7 +85,10 @@ function ToDoListShow() {
     });
     return tarefasByDate;
   };
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
+    while (!reload){
+      await new Promise(r => setTimeout(r, 200));
+    }
     deleteTarefas(id);
   };
 
