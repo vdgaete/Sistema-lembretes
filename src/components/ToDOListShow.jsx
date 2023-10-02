@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { useEffect } from "react";
+import { useState } from 'react';
 
 const DateCard = styled.div`
   margin: 0;
@@ -41,10 +42,11 @@ const ListItem = styled.ul`
 `;
 
 function ToDoListShow() {
-  const { tarefas, loading, error, deleteTarefas, getTarefas } = useApi();
-
+  const { tarefas, error, deleteTarefas, getTarefas } = useApi();
+  const [savedTarefas, setSavedTarefas] = useState([]);
   useEffect(() => {
     getTarefas();
+    setSavedTarefas(tarefas);
   }, []);
 
   const filterDates = (tarefas) => {
@@ -84,11 +86,7 @@ function ToDoListShow() {
 
   return (
     <>
-      {loading ? (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      ) : (
+      {
         <>
           {error ? (
             <div>
@@ -96,7 +94,7 @@ function ToDoListShow() {
             </div>
           ) : (
             <>
-              {filterDates(tarefas).map((selectedDate) => (
+              {filterDates(savedTarefas).map((selectedDate) => (
                 <DateCard key={selectedDate}>
                   <DateCardTitle>{`${selectedDate.split("-")[2]}/${
                     selectedDate.split("-")[1]
@@ -126,7 +124,7 @@ function ToDoListShow() {
             </>
           )}
         </>
-      )}
+      }
     </>
   );
 }
