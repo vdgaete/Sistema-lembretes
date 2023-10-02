@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 const app = express(); // create express app
 
 // add middlewares
-app.use(express.static(path.join("..", "dist")));
+
 
 app.get('/', (req, res) => {
     res.send('Hello World!')

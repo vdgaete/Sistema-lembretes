@@ -5,7 +5,11 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import path from "path";
 import process from "process";
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 
@@ -25,7 +29,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 //client
-app.use(express.static(path.join("..","..", "dist")));
+app.use(express.static(path.join(__dirname, '..','public')));
 
 // Json parser
 app.use(express.json());
