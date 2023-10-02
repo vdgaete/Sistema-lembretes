@@ -3,7 +3,6 @@ import {createTable} from './controller/Tarefa.js';
 import express from 'express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import cors from 'cors';
 
 const app = express();
 
@@ -22,9 +21,6 @@ const options = {
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format
 const swaggerSpec = swaggerJSDoc(options);
 
-// Cors
-
-
 
 // Json parser
 app.use(express.json());
@@ -42,5 +38,5 @@ app.use(router);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, ()=>{
-  console.log(`Server Up And Running At Port ${PORT}`);
+  caseonsole.log(`Server Up And Running At Port ${PORT}`);
 });

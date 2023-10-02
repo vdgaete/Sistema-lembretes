@@ -8,8 +8,7 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "eslint": "eslint ./",
-    "eslint-fix": "eslint ./ --fix",
-    "build": "webpack"
+    "eslint-fix": "eslint ./ --fix"
   },
   "keywords": [],
   "author": "",
