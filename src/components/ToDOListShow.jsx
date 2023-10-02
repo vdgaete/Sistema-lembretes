@@ -86,7 +86,7 @@ function ToDoListShow() {
     return tarefasByDate;
   };
   const handleDelete = async (id) => {
-    while (!reload){
+    while (reload){
       await new Promise(r => setTimeout(r, 200));
     }
     deleteTarefas(id);
