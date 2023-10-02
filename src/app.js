@@ -24,11 +24,7 @@ const swaggerSpec = swaggerJSDoc(options);
 
 // Cors
 
-app.use(cors(
-    {
-      origin: '*',
-    },
-));
+
 
 // Json parser
 app.use(express.json());
@@ -43,7 +39,8 @@ createTable();
 import router from './routes.js';
 app.use(router);
 
-let PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, ()=>{
-    console.log(`Server Up And Running At Port ${PORT}`);
+  console.log(`Server Up And Running At Port ${PORT}`);
 });
