@@ -1,0 +1,1 @@
+web: vite build && (cd server && node server.js)
