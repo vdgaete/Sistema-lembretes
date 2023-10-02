@@ -5,7 +5,7 @@ import propTypes from "prop-types";
 
 
 const api = axios.create({
-    baseURL: "0.0.0.0",
+    baseURL: "",
     headers: {
         headers: {
         "Content-Type": "application/json",
