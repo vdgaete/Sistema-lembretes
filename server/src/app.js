@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import {createTable} from './controller/Tarefa.js';
+
 import express from 'express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
@@ -37,8 +37,6 @@ app.use(express.json());
 // Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Check if the database table exists
-createTable();
 
 // Routes
 import router from './routes.js';
