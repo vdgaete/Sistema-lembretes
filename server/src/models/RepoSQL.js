@@ -1,5 +1,5 @@
 // 
-import * as TarefaSQL from '../controllers/TarefaSQL.js';
+import * as TarefaSQL from '../controller/TarefaSQL.js';
 import { RepoTarefaModel } from './RepoTarefaModel.js';
 import { openDb } from '../configDB.js';
 

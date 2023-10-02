@@ -2,7 +2,6 @@
 /* eslint-disable max-len */
 /* eslint-disable linebreak-style */
 import {openDb} from '../configDB.js';
-import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 
 /**
  * Creates a new table in the database.
