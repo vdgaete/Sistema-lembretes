@@ -14,7 +14,7 @@ const router = Router();
 
 //Client
 router.get('/client', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
   });
 
 
