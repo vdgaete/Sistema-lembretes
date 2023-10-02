@@ -1,0 +1,134 @@
+// To Do List Show Component
+import { useApi } from "../contexts/ApiContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
+import { useEffect } from "react";
+
+const DateCard = styled.div`
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  padding: 10px;
+  width: 100%;
+`;
+
+const DateCardTitle = styled.h2`
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;  
+  align-self: flex-start;
+
+`;
+
+const ListDiv = styled.div`
+  list-style: inside;
+  
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap:5px;
+`;
+
+const ListItem = styled.ul`
+  
+  font-size: 18px;
+  height: 30px; 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+function ToDoListShow() {
+  const { tarefas, loading, error, deleteTarefas, getTarefas } = useApi();
+
+  useEffect(() => {
+    getTarefas();
+  }, []);
+
+  const filterDates = (tarefas) => {
+    let dates = [];
+    tarefas.forEach((tarefa) => {
+      if (!dates.includes(tarefa.data)) {
+        dates.push(tarefa.data);
+      }
+    });
+
+    // Sort dates
+    dates.sort();
+    return dates;
+  };
+  const filterTarefasByDate = (tarefas, date) => {
+    let tarefasByDate = [];
+    tarefas.forEach((tarefa) => {
+      if (tarefa.data === date) {
+        tarefasByDate.push(tarefa);
+      }
+    });
+    //sort
+    tarefasByDate.sort((a, b) => {
+      if (a.id < b.id) {
+        return -1;
+      }
+      if (a.id > b.id) {
+        return 1;
+      }
+      return 0;
+    });
+    return tarefasByDate;
+  };
+  const handleDelete = (id) => {
+    deleteTarefas(id);
+  };
+
+  return (
+    <>
+      {loading ? (
+        <div>
+          <h1>Loading...</h1>
+        </div>
+      ) : (
+        <>
+          {error ? (
+            <div>
+              <h3>Error: {error.message}</h3>
+            </div>
+          ) : (
+            <>
+              {filterDates(tarefas).map((selectedDate) => (
+                <DateCard key={selectedDate}>
+                  <DateCardTitle>{`${selectedDate.split("-")[2]}/${
+                    selectedDate.split("-")[1]
+                  }/${selectedDate.split("-")[0]}`}</DateCardTitle>
+
+                  <ListDiv>
+                    {filterTarefasByDate(tarefas, selectedDate).map(
+                      (selectedTarefa) => (
+                        <ListItem key={selectedTarefa.id}>
+                          {selectedTarefa.nome}
+                          <FontAwesomeIcon
+                            icon={faDeleteLeft}
+                            size="xs"
+                            color="red"
+                            style={{
+                              marginLeft: "10px",
+                              alignSelf: "center",
+                            }}
+                            onClick={() => handleDelete(selectedTarefa.id)}
+                          />
+                        </ListItem>
+                      )
+                    )}
+                  </ListDiv>
+                </DateCard>
+              ))}
+            </>
+          )}
+        </>
+      )}
+    </>
+  );
+}
+
+export default ToDoListShow;
