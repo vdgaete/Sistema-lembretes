@@ -35,8 +35,6 @@ createTable();
 import router from './routes.js';
 app.use(router);
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, ()=>{
+app.listen(process.env.PORT || 5000, ()=>{
   caseonsole.log(`Server Up And Running At Port ${PORT}`);
 });
