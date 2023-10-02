@@ -42,12 +42,11 @@ const ListItem = styled.ul`
 `;
 
 function ToDoListShow() {
-  const { tarefas, error, deleteTarefas, getTarefas } = useApi();
+  const { tarefas, error, deleteTarefas } = useApi();
   const [savedTarefas, setSavedTarefas] = useState([]);
   useEffect(() => {
-    getTarefas();
     setSavedTarefas(tarefas);
-  }, []);
+  }, [tarefas]);
 
   const filterDates = (tarefas) => {
     let dates = [];

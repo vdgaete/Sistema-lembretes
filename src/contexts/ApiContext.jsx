@@ -1,5 +1,5 @@
 //Api management context
-import { createContext, useState, useContext} from "react";
+import { createContext, useState, useContext, useEffect} from "react";
 import axios from "axios";
 import propTypes from "prop-types";
 
@@ -21,6 +21,10 @@ const ApiProvider = (props) => {
     const [tarefas, setTarefas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    useEffect(() => {
+        getTarefas();
+    }   , []);
 
     const getTarefas = async () => {
         setLoading(true);
