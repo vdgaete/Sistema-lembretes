@@ -101,7 +101,7 @@ function ToDoListShow() {
                   }/${selectedDate.split("-")[0]}`}</DateCardTitle>
 
                   <ListDiv>
-                    {filterTarefasByDate(tarefas, selectedDate).map(
+                    {filterTarefasByDate(savedTarefas, selectedDate).map(
                       (selectedTarefa) => (
                         <ListItem key={selectedTarefa.id}>
                           {selectedTarefa.nome}
