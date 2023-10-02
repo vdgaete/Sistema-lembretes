@@ -43,8 +43,7 @@ createTable();
 import router from './routes.js';
 app.use(router);
 
-// Start server
-app.listen(3333, () => {
-  console.log('Example app listening on port 3333!');
-},
-);
+let PORT = process.env.PORT || 3000;
+app.listen(PORT, ()=>{
+    console.log(`Server Up And Running At Port ${PORT}`);
+});
