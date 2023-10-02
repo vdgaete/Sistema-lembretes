@@ -47,9 +47,11 @@ function ToDoListShow() {
   useEffect(() => {
     if (tarefas.error) {
       getTarefas();
-      return;
     }
-    setSavedTarefas(tarefas);
+    else {
+
+      setSavedTarefas(tarefas);
+    }
   }, [getTarefas, tarefas]);
 
   const filterDates = (tarefas) => {
