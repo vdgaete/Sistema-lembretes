@@ -21,10 +21,12 @@ const ApiProvider = (props) => {
     const [tarefas, setTarefas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [reload, setReload] = useState(true);
 
     useEffect(() => {
         getTarefas();
-    }   , []);
+        setReload(false);
+    }   , [reload]);
 
     const getTarefas = async () => {
         setLoading(true);
@@ -49,7 +51,7 @@ const ApiProvider = (props) => {
                 console.log(response);
             }   
             );
-            getTarefas();
+            setReload(true);
             
         } catch (error) {
             setError(error);
@@ -68,7 +70,7 @@ const ApiProvider = (props) => {
                 }
             }
             );
-            getTarefas();
+            setReload(true);
         } catch (error) {
             setError(error);
             
@@ -83,7 +85,7 @@ const ApiProvider = (props) => {
                 name: name,
                 date: date
             });
-            getTarefas();
+            setReload(true);
         } catch (error) {
             setError(error);
             setLoading(false);
