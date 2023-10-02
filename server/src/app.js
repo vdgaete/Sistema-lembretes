@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-
+import { createTable } from './controller/TarefaSQL.js';
 import express from 'express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
@@ -13,6 +13,8 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
+// Verify if the table exists, if not, create it
+createTable();
 
 // Swagger options
 const options = {
