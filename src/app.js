@@ -36,5 +36,5 @@ import router from './routes.js';
 app.use(router);
 
 app.listen(process.env.PORT || 5000, ()=>{
-  caseonsole.log(`Server Up And Running At Port ${PORT}`);
+  console.log(`Server Up And Running At Port ${PORT}`);
 });
