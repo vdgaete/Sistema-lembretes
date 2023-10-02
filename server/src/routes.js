@@ -2,11 +2,10 @@
 /* eslint-disable new-cap */
 /* eslint-disable max-len */
 import {Router} from 'express';
-import {insertTarefa, selectTarefa, updateTarefa, deleteTarefa, selectAllDates, selectTarefas, selectTarefasByDate} from './controller/Tarefa.js';
 import path from "path";
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-
+import { RepoTarefaSQL } from './models/RepoSQL.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 // Router setup
@@ -18,6 +17,7 @@ router.get('/client', (req, res) => {
   });
 
 
+const RepoSQL = new RepoTarefaSQL({dbfile: './database.sqlite'});
 
 /**
  * @openapi
@@ -42,7 +42,7 @@ router.get('/', (req, res) => {
  *         description: A list of tasks.
  */
 router.get('/tarefa', async (req, res) => {
-  const response = await selectTarefas(req, res);
+  const response = await RepoSQL.selectTarefas(req, res);
   return response;
 });
 
@@ -63,7 +63,7 @@ router.get('/tarefa', async (req, res) => {
  *         description: A task object.
  */
 router.get('/tarefa/:id', async (req, res) => {
-  const response = await selectTarefa(req, res);
+  const response = await RepoSQL.selectTarefa(req, res);
   return response;
 });
 
@@ -77,7 +77,7 @@ router.get('/tarefa/:id', async (req, res) => {
  *         description: A list of dates with tasks.
  */
 router.get('/tarefas/datas', async (req, res) => {
-  const response = await selectAllDates(req, res);
+  const response = await RepoSQL.selectAllDates(req, res);
   return response;
 },
 );
@@ -99,7 +99,7 @@ router.get('/tarefas/datas', async (req, res) => {
  *         description: A list of tasks for the specified date.
  */
 router.get('/tarefas/data/:data', async (req, res) => {
-  const response = await selectTarefasByDate(req, res);
+  const response = await RepoSQL.selectTarefasByDate(req, res);
   return response;
 });
 
@@ -124,7 +124,7 @@ router.get('/tarefas/data/:data', async (req, res) => {
  *         description: The created task object.
  */
 router.post('/tarefa', async (req, res) => {
-  const response = await insertTarefa(req, res);
+  const response = await RepoSQL.insertTarefa(req, res);
   return response;
 });
 
@@ -151,7 +151,7 @@ router.post('/tarefa', async (req, res) => {
  *         description: The updated task object.
  */
 router.put('/tarefa', async (req, res) => {
-  const response = await updateTarefa(req, res);
+  const response = await RepoSQL.updateTarefa(req, res);
   return response;
 });
 
@@ -174,7 +174,7 @@ router.put('/tarefa', async (req, res) => {
  *         description: The deleted task object.
  */
 router.delete('/tarefa', async (req, res) => {
-  const response = await deleteTarefa(req, res);
+  const response = await RepoSQL.deleteTarefa(req, res);
   return response;
 });
 
