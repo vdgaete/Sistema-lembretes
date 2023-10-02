@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 /* eslint-disable linebreak-style */
 import {openDb} from '../configDB.js';
-
+import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 
 /**
  * Creates a new table in the database.
@@ -16,6 +16,25 @@ export async function createTable(dbfile = './database.sqlite') {
     );
   });
 }
+
+/**
+ * Verifica se a data é superior a ontem
+ * @param {string} a - Data em formato "YYYY-MM-DD"
+ * @param {Date} today - Data de hoje
+ * @returns {boolean} - true se a data for válida, false se não for
+ */
+export function dateComparator(a, today) {
+  const dataDate = new Date(a);
+  const todayDate = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()-1));
+  if (dataDate >= todayDate) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+//
+
 
 /**
  * Inserts a new task into the database.
