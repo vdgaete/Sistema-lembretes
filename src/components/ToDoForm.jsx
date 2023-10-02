@@ -115,7 +115,7 @@ const ToDoForm = () => {
                 // Verificar se data de entrega é hoje
                 if (
                   value.split("-")[2] == now.getDate() &&
-                  value.split("-")[1] == now.getMonth()  &&
+                  value.split("-")[1] == now.getMonth() +1 &&
                   value.split("-")[0] == now.getFullYear()
                 ) {
                   return true;
