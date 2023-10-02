@@ -1,61 +1,134 @@
 // To Do List Show Component
+import { useApi } from "../contexts/ApiContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
+import { useEffect } from "react";
 
-import React from 'react';
-import axios from 'axios';
-import PropTypes from 'prop-types';
-import { format, previousSaturday } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
+const DateCard = styled.div`
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  padding: 10px;
+  width: 100%;
+`;
 
-const api = axios.create({
-    baseURL: 'http://localhost:3001/api'
-    })
+const DateCardTitle = styled.h2`
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;  
+  align-self: flex-start;
+
+`;
+
+const ListDiv = styled.div`
+  list-style: inside;
+  
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap:5px;
+`;
+
+const ListItem = styled.ul`
+  
+  font-size: 18px;
+  height: 30px; 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
 function ToDoListShow() {
-    const [toDoDates, setToDoDates] = React.useState([])
-    const [toDoDatesValues, setToDoDatesValues] = React.useState({})
-    const [isLoading, setIsLoading] = React.useState(false)
+  const { tarefas, loading, error, deleteTarefas, getTarefas } = useApi();
 
+  useEffect(() => {
+    getTarefas();
+  }, []);
 
-    React.useEffect(() => {
-        //get all dates and values
-        //here we need to use axios to get all dates and values using Rest API
-        //and set toDoList
-        setIsLoading(true)
-        api.get('/dates').then(response => {
-            setToDoDates(response.data)
-        })
-        // get all values in each date
-        //here we need to use axios to get all values in each date using Rest API
-        toDoDates.forEach(date => {
-            api.get(`/datesValues`, {params: {date: date}}
-            ).then(response => {
-                setToDoDatesValues(prevState => ({
-                    ...prevState,
-                    [date]: response.data
-                }))
-            })
-        })
+  const filterDates = (tarefas) => {
+    let dates = [];
+    tarefas.forEach((tarefa) => {
+      if (!dates.includes(tarefa.data)) {
+        dates.push(tarefa.data);
+      }
+    });
 
-        setIsLoading(false)
-    }, [])
+    // Sort dates
+    dates.sort();
+    return dates;
+  };
+  const filterTarefasByDate = (tarefas, date) => {
+    let tarefasByDate = [];
+    tarefas.forEach((tarefa) => {
+      if (tarefa.data === date) {
+        tarefasByDate.push(tarefa);
+      }
+    });
+    //sort
+    tarefasByDate.sort((a, b) => {
+      if (a.id < b.id) {
+        return -1;
+      }
+      if (a.id > b.id) {
+        return 1;
+      }
+      return 0;
+    });
+    return tarefasByDate;
+  };
+  const handleDelete = (id) => {
+    deleteTarefas(id);
+  };
 
-    
-
-    return (
+  return (
+    <>
+      {loading ? (
         <div>
-            {(isLoading) ? (
-                <div>
-                    <h1>Loading...</h1>
-                </div>
-            ) : (
-                <div>
-                    <h1 style={{textAlign: 'center'}}>To Do List</h1>
-                </div>
-            )
-            }
-            
+          <h1>Loading...</h1>
         </div>
-    )
+      ) : (
+        <>
+          {error ? (
+            <div>
+              <h3>Error: {error.message}</h3>
+            </div>
+          ) : (
+            <>
+              {filterDates(tarefas).map((selectedDate) => (
+                <DateCard key={selectedDate}>
+                  <DateCardTitle>{`${selectedDate.split("-")[2]}/${
+                    selectedDate.split("-")[1]
+                  }/${selectedDate.split("-")[0]}`}</DateCardTitle>
+
+                  <ListDiv>
+                    {filterTarefasByDate(tarefas, selectedDate).map(
+                      (selectedTarefa) => (
+                        <ListItem key={selectedTarefa.id}>
+                          {selectedTarefa.nome}
+                          <FontAwesomeIcon
+                            icon={faDeleteLeft}
+                            size="xs"
+                            color="red"
+                            style={{
+                              marginLeft: "10px",
+                              alignSelf: "center",
+                            }}
+                            onClick={() => handleDelete(selectedTarefa.id)}
+                          />
+                        </ListItem>
+                      )
+                    )}
+                  </ListDiv>
+                </DateCard>
+              ))}
+            </>
+          )}
+        </>
+      )}
+    </>
+  );
 }
 
 export default ToDoListShow;

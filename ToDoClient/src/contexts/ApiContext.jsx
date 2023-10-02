@@ -1,22 +1,31 @@
 //Api management context
-import React, { createContext, useState, useEffect } from "react";
+import { createContext, useState, useContext} from "react";
 import axios from "axios";
 import propTypes from "prop-types";
 
 
-const api_url = "http://localhost:3000";
+const api = axios.create({
+    baseURL: "http://localhost:3333",
+    headers: {
+        headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Allow-Control-Allow-Origin": "*",
+    },
+},
+});
 
-export const ApiContext = createContext();
+const ApiContext = createContext();
 
-export const ApiProvider = (props) => {
+const ApiProvider = (props) => {
     const [tarefas, setTarefas] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const getTarefas = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`${api_url}/tarefas`);
+            const response = await api.get("/tarefa");
             setTarefas(response.data);
             setLoading(false);
         } catch (error) {
@@ -25,47 +34,48 @@ export const ApiProvider = (props) => {
         }
     }
 
-    const addtarefas = async (name, date) => {
-        setLoading(true);
+    const postTarefas = async (name, date) => {
+        
         try {
-            await axios.post(`${api_url}/tarefas`, {
-                name: name,
-                date: date
-            });
+            console.log(date);
+            await api.post("/tarefa", {
+                nome: name,
+                data: date
+            }).then((response) => {
+                console.log(response);
+            }   
+            );
             getTarefas();
+            
         } catch (error) {
             setError(error);
-            setLoading(false);
-        }
-    }
-
-    const getDates = async () => {
-        setLoading(true);
-        try {
-            const response = await axios.get(`${api_url}/tarefas`);
-            setTarefas(response.data);
-            setLoading(false);
-        } catch (error) {
-            setError(error);
-            setLoading(false);
+            
         }
     }
 
     const deleteTarefas = async (id) => {
-        setLoading(true);
+        
         try {
-            await axios.delete(`${api_url}/tarefas/${id}`);
+            await api.delete(`/tarefa/`
+            , 
+            {
+                data: {
+                    id: id
+                }
+            }
+            );
             getTarefas();
         } catch (error) {
             setError(error);
-            setLoading(false);
+            
         }
     }
 
     const updateTarefas = async (id, name, date) => {
         setLoading(true);
         try {
-            await axios.put(`${api_url}/tarefas/${id}`, {
+            await api.put(`/tarefa/`, {
+                id: id,
                 name: name,
                 date: date
             });
@@ -75,18 +85,14 @@ export const ApiProvider = (props) => {
             setLoading(false);
         }
     }
-
-    useEffect(() => {
-        getTarefas();
-    }, []);
-
     const APIState = {
         tarefas,
         loading,
         error,
-        addtarefas,
-        deletetarefas: deleteTarefas,
-        updatetarefas: updateTarefas
+        getTarefas,
+        postTarefas,
+        deleteTarefas,
+        updateTarefas
     }
 
     return (
@@ -94,8 +100,20 @@ export const ApiProvider = (props) => {
             {props.children}
         </ApiContext.Provider>
     );
-
 }
 
+const useApi = () => {
+    const context = useContext(ApiContext);
+    if (context === undefined) {
+        throw new Error("useApi must be used within a ApiProvider");
+    }
+    return context;
+}
+
+export { ApiProvider, useApi };
 
 
+
+ApiProvider.propTypes = {
+    children: propTypes.node.isRequired
+}
