@@ -1,6 +1,6 @@
 # Sistema de lembretes
 
-- Autor: [Victor Daniel]
+- Autor: Victor Daniel
 - Data de Entrega: 03/10/2023
 
 ## Descrição do Projeto
