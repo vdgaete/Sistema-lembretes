@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Public
+server/public/
+
+# DB
+*.sqlite

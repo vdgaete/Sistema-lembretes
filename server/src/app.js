@@ -25,7 +25,7 @@ const options = {
       version: '1.0.0',
     },
   },
-  apis: ['./src/routes*.js'], // files containing annotations as above
+  apis: ['./server/src/routes*.js'], // files containing annotations as above
 };
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format
 const swaggerSpec = swaggerJSDoc(options);
@@ -44,6 +44,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 import router from './routes.js';
 app.use(router);
 
+//port 
+const PORT = process.env.PORT || 5000;
+
 app.listen(process.env.PORT || 5000, ()=>{
-  console.log(`Server Up And Running At Port ${process.env.PORT}`);
+  console.log(`Server Up And Running At Port ${PORT}`);
 });
