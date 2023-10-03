@@ -59,13 +59,7 @@ const ToDoForm = () => {
   } = useForm({ mode: "onSubmit" });
 
   const onSubmit = async (data) => {
-    console.log(data.nome);
-    if (data.nome === "") {
-      return false;
-    }
-    if (new Date(data.dataLembrete) < new Date()) {
-      return false;
-    }
+    
     const dados = {
       nome: data.nome,
       dataLembrete: data.dataLembrete,
@@ -121,7 +115,7 @@ const ToDoForm = () => {
                 // Verificar se data de entrega é hoje
                 if (
                   value.split("-")[2] == now.getDate() &&
-                  value.split("-")[1] == now.getMonth() + 1 &&
+                  value.split("-")[1] == now.getMonth() +1 &&
                   value.split("-")[0] == now.getFullYear()
                 ) {
                   return true;

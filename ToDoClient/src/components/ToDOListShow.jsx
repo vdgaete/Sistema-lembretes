@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { useEffect } from "react";
+import { useState } from 'react';
 
 const DateCard = styled.div`
   margin: 0;
@@ -41,11 +42,17 @@ const ListItem = styled.ul`
 `;
 
 function ToDoListShow() {
-  const { tarefas, loading, error, deleteTarefas, getTarefas } = useApi();
-
+  const { tarefas, error, deleteTarefas,getTarefas,reload } = useApi();
+  const [savedTarefas, setSavedTarefas] = useState([]);
   useEffect(() => {
-    getTarefas();
-  }, []);
+    if (tarefas.error) {
+      getTarefas();
+    }
+    else {
+
+      setSavedTarefas(tarefas);
+    }
+  }, [getTarefas, tarefas]);
 
   const filterDates = (tarefas) => {
     let dates = [];
@@ -78,17 +85,16 @@ function ToDoListShow() {
     });
     return tarefasByDate;
   };
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
+    while (reload){
+      await new Promise(r => setTimeout(r, 200));
+    }
     deleteTarefas(id);
   };
 
   return (
     <>
-      {loading ? (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      ) : (
+      {
         <>
           {error ? (
             <div>
@@ -96,14 +102,14 @@ function ToDoListShow() {
             </div>
           ) : (
             <>
-              {filterDates(tarefas).map((selectedDate) => (
+              {filterDates(savedTarefas).map((selectedDate) => (
                 <DateCard key={selectedDate}>
                   <DateCardTitle>{`${selectedDate.split("-")[2]}/${
                     selectedDate.split("-")[1]
                   }/${selectedDate.split("-")[0]}`}</DateCardTitle>
 
                   <ListDiv>
-                    {filterTarefasByDate(tarefas, selectedDate).map(
+                    {filterTarefasByDate(savedTarefas, selectedDate).map(
                       (selectedTarefa) => (
                         <ListItem key={selectedTarefa.id}>
                           {selectedTarefa.nome}
@@ -126,7 +132,7 @@ function ToDoListShow() {
             </>
           )}
         </>
-      )}
+      }
     </>
   );
 }
