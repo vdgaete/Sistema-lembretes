@@ -12,7 +12,7 @@ const app = express(); // create express app
 
 // add middlewares
 
-//TODO: add middleware to serve static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // start express server on port 5000
 app.listen(process.env.PORT || 5000
