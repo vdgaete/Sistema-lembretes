@@ -44,6 +44,8 @@ O deploy do projeto foi feito utilizando o [Heroku](https://www.heroku.com/),
 
 ## Como executar o projeto
 
+O Branch main contém o todo o código de forma separada para avaliação porém não possui a estrutura de pastas para execução do projeto, para executar o projeto é necessário fazer o download do branch [deploy](github.com/vdgaete/dti-teste-victor/tree/deploy), que contém a estrutura de pastas para execução do projeto.
+
 ### Pré-requisitos
 
 - [Node.js](https://nodejs.org/en/) testado na versão 18.16.1
