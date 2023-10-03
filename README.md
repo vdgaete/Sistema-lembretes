@@ -34,10 +34,6 @@ Foi também utilizado o [Swagger](https://swagger.io/) para documentação autom
 
 Pensando em simplificar o deploy do projeto, o back-end também provê o front-end do projeto, mas trabalham virtualmente de forma independente, dessa forma o deploy do projeto pode ser feito em apenas um servidor, facilitando a configuração do projeto.
 
-### Testes
-
-- TO-DO
-
 ### Deploy
 
 O deploy do projeto foi feito utilizando o [Heroku](https://www.heroku.com/), caso queira acessar o projeto já em produção, basta acessar [https://teste-victor-dti-a3625cfe6cd1.herokuapp.com/](https://teste-victor-dti-a3625cfe6cd1.herokuapp.com/)
