@@ -12,13 +12,13 @@ function App() {
     <>
       <ApiProvider>
       <ViewContainer>
-      <ViewTitle>Lista de Tarefas</ViewTitle>
+      <ViewTitle>Lista de Lembretes</ViewTitle>
       <FormContainer>
-      <FormTitle>Adicionar Tarefa</FormTitle>
+      <FormTitle>Adicionar Lembrete</FormTitle>
       <ToDoForm />
       </FormContainer>
       <ListContainer>
-      <FormTitle>Lista de Tarefas</FormTitle>
+      <FormTitle>Lista de Lembretes Cadastrados</FormTitle>
       <ToDoListShow />  
       </ListContainer>
       </ViewContainer>
@@ -66,6 +66,7 @@ const FormTitle = styled.h2`
   font-size: 20px;
   font-weight: bold;
   margin: 0;
+  color: #333;
 `;
 
 const ListContainer = styled.div`

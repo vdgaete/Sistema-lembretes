@@ -20,7 +20,7 @@ const DateCardTitle = styled.h2`
   font-weight: bold;
   margin: 0;  
   align-self: flex-start;
-
+  color: #333;
 `;
 
 const ListDiv = styled.div`
@@ -33,7 +33,7 @@ const ListDiv = styled.div`
 `;
 
 const ListItem = styled.ul`
-  
+  color: #333;
   font-size: 18px;
   height: 30px; 
   display: flex;

@@ -40,7 +40,7 @@ Pensando em simplificar o deploy do projeto, o back-end também provê o front-e
 
 ### Deploy
 
-O deploy do projeto foi feito utilizando o [Heroku](https://www.heroku.com/), 
+O deploy do projeto foi feito utilizando o [Heroku](https://www.heroku.com/), caso queira acessar o projeto já em produção, basta acessar [https://teste-victor-dti-a3625cfe6cd1.herokuapp.com/](https://teste-victor-dti-a3625cfe6cd1.herokuapp.com/)
 
 ## Como executar o projeto
 
@@ -166,4 +166,8 @@ Outras tecnologias que foram utilizadas durante o desenvolvimento do projeto for
 nesse caso foi utilizado apenas o [Styled Components](https://styled-components.com/) para estilização dos componentes, o que não é ruim do ponto de vista de aprendizado e experiência, mas para um projeto real, utilizar um framework de componentes prontos seria mais vantajoso,
 principalmente para o caso de um projeto que necessite de configuração de temas, e componentes mais complexos.
 
+- Implementaria testes unitários e de integração desde o início do projeto, pois dessa forma seria possível garantir a qualidade do código e evitar problemas futuros, além de facilitar a manutenção do projeto. O TDD seria uma boa opção para o desenvolvimento do projeto, pois dessa forma os testes seriam desenvolvidos antes do código, guiando o desenvolvimento do projeto.
+
 ## Pontos de melhoria
+
+...

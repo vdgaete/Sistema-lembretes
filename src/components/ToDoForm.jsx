@@ -18,6 +18,7 @@ const Input = styled.input`
   height: 35px;
   border-radius: 5px;
   border: 2px solid #ccc;
+  background-color: #fff;
 `;
 const InputBox = styled.div`
   display: flex;
@@ -37,7 +38,7 @@ const Label = styled.label`
 width:25%;
 
   display: flex;
-  
+  color: #333;
   align-self: center;
   font-size: 15px;
   font-weight: bold;
@@ -73,7 +74,7 @@ const ToDoForm = () => {
     <Form onSubmit={handleSubmit(onSubmit)} name="cadastro">
       <InputDiv>
         <InputBox>
-          <Label htmlFor="nome">Nome:</Label>
+          <Label htmlFor="nome">Lembrete:</Label>
 
           <Input
             id="nome"
@@ -86,7 +87,7 @@ const ToDoForm = () => {
               minLength: 1,
               maxLength: 200,
             })}
-            placeholder="Nome da atividade"
+            placeholder="Nome do Lebrete"
           />
         </InputBox>
         {errors.nome && (
