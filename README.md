@@ -71,9 +71,6 @@ O Branch main contém o todo o código de forma separada para avaliação porém
     http://localhost:5000/api-docs
     ```
 
-## Como executar os testes
-
-- TO-DO
 
 ## Como fazer o deploy do projeto
 
